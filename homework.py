@@ -15,21 +15,14 @@ class InfoMessage:
 
     def get_message(self) -> str:
         message = (f'Тип тренировки: {self.training_type}; '
-                   f'Длительность: {self.round_with_zeros(self.duration)} ч.; '
-                   f'Дистанция: {self.round_with_zeros(self.distance)} км; '
-                   f'Ср. скорость: {self.round_with_zeros(self.speed)} км/ч; '
-                   f'Потрачено ккал: {self.round_with_zeros(self.calories)}.')
+                   f'Длительность: {"%.3f" % round(self.duration, 3)} ч.; '
+                   f'Дистанция: {"%.3f" % round(self.distance, 3)} км; '
+                   f'Ср. скорость: {"%.3f" % round(self.speed, 3)} км/ч; '
+                   f'Потрачено ккал: {"%.3f" % round(self.calories, 3)}.')
         return message
 
     def show_message(self) -> None:
         print(self.get_message())
-
-    def round_with_zeros(self, number: float) -> str:
-        """Округление чисел с нулями после запятой."""
-        number = round(number, 3)
-        left_side = str(int(number))
-        rigth_side = str(float(number) + 0.0001).split(".")[1][0:3]
-        return f'{left_side}.{rigth_side}'
 
 
 class Training:
@@ -95,11 +88,13 @@ class SportsWalking(Training):
         coeff_calorie_1 = 0.035
         coeff_calorie_2 = 0.029
 
-        for_readability = (self.get_mean_speed() ** 2 // self.height)
-        for_readability_2 = self.weight + for_readability * coeff_calorie_2
-        for_readability_3 = (coeff_calorie_1 * for_readability_2 * self.weight)
+        chunk_of_formula_1 = (self.get_mean_speed() ** 2 // self.height)
+        chunk_of_formula_2 = coeff_calorie_1 * self.weight
+        chunk_of_formula_3 = coeff_calorie_2 * self.weight
+        big_chunk = (chunk_of_formula_2 + chunk_of_formula_1 * chunk_of_formula_3)
 
-        return for_readability_3 * self.duration * 60
+
+        return big_chunk * self.duration * 60
 
 
 class Swimming(Training):
