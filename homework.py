@@ -1,6 +1,3 @@
-import typing
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
