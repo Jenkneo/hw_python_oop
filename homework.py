@@ -100,8 +100,9 @@ class SportsWalking(Training):
 
         for_readability = (self.get_mean_speed() ** 2 // self.height)
         for_readability_2 = self.weight + for_readability * coeff_calorie_2
+        for_readability_3 = (coeff_calorie_1 * for_readability_2 * self.weight)
 
-        return (coeff_calorie_1 * for_readability_2 * self.weight) * self.duration * 60
+        return for_readability_3 * self.duration * 60
 
 
 class Swimming(Training):
