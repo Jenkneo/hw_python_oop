@@ -88,11 +88,10 @@ class SportsWalking(Training):
         coeff_calorie_1 = 0.035
         coeff_calorie_2 = 0.029
 
-        chunk_of_formula_1 = (self.get_mean_speed() ** 2 // self.height)
-        chunk_of_formula_2 = coeff_calorie_1 * self.weight
-        chunk_of_formula_3 = coeff_calorie_2 * self.weight
-        big_chunk = (chunk_of_formula_2 + chunk_of_formula_1 * chunk_of_formula_3)
-
+        chunk_1 = (self.get_mean_speed() ** 2 // self.height)
+        chunk_2 = coeff_calorie_1 * self.weight
+        chunk_3 = coeff_calorie_2 * self.weight
+        big_chunk = (chunk_2 + chunk_1 * chunk_3)
 
         return big_chunk * self.duration * 60
 
