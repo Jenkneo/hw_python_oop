@@ -70,9 +70,12 @@ class Running(Training):
     HOUR_TO_MIN = 60
 
     def get_spent_calories(self) -> float:
-        avg_kcal_coeff = self.COEFF_KCAL_1 * self.get_mean_speed() - self.COEFF_KCAL_2
+        upper_coeff = self.COEFF_KCAL_1 * self.get_mean_speed()
+        avg_coeff = upper_coeff - self.COEFF_KCAL_2
 
-        return avg_kcal_coeff * self.weight / self.M_IN_KM * self.duration * self.HOUR_TO_MIN
+        chunk = avg_coeff * self.weight
+
+        return chunk / self.M_IN_KM * self.duration * self.HOUR_TO_MIN
 
 
 class SportsWalking(Training):
