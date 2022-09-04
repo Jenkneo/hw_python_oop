@@ -92,10 +92,10 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        chunk_1 = (self.get_mean_speed() ** 2 // self.height)
+        chunk_1 = self.get_mean_speed() ** 2 // self.height
         chunk_2 = self.COEFF_KCAL_1 * self.weight
         chunk_3 = self.COEFF_KCAL_2 * self.weight
-        big_chunk = (chunk_2 + chunk_1 * chunk_3)
+        big_chunk = chunk_2 + chunk_1 * chunk_3
 
         return big_chunk * self.duration * self.HOUR_TO_MIN
 
@@ -117,12 +117,12 @@ class Swimming(Training):
         self.count_pool = count_pool
 
     def get_spent_calories(self) -> float:
-        chunk = (self.get_mean_speed() + self.COEFF_KCAL_1)
+        chunk = self.get_mean_speed() + self.COEFF_KCAL_1
         return chunk * self.COEFF_KCAL_2 * self.weight
 
     def get_mean_speed(self) -> float:
         for_readability = self.length_pool * self.count_pool
-        return (for_readability / self.M_IN_KM / self.duration)
+        return for_readability / self.M_IN_KM / self.duration
 
 
 def read_package(workout_type: str, data: list) -> Training:
@@ -131,7 +131,8 @@ def read_package(workout_type: str, data: list) -> Training:
                  'RUN': Running,
                  'WLK': SportsWalking}
     if workout_type not in trainings.keys():
-        raise KeyError("Упс! Расчет для таких тренеровок еще не создан.")
+        raise KeyError('Упс! Расчет для таких тренеровок еще не создан. '
+                       f'Доступные виды тренировок:{trainings.keys()}')
     else:
         return trainings[workout_type](*data)
 
