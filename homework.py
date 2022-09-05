@@ -133,7 +133,7 @@ def read_package(workout_type: str, data: list) -> Training:
     if workout_type not in trainings.keys():
         raise KeyError('Упс! Расчет для таких тренеровок еще не создан. '
                        'Доступные виды тренировок: '
-                        f'{", ".join(list(trainings.keys()))}')
+                       f'{", ".join(list(trainings.keys()))}')
     else:
         return trainings[workout_type](*data)
 
