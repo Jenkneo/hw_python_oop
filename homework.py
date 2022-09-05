@@ -132,7 +132,7 @@ def read_package(workout_type: str, data: list) -> Training:
                  'WLK': SportsWalking}
     if workout_type not in trainings.keys():
         raise KeyError('Упс! Расчет для таких тренеровок еще не создан. '
-                       f'Доступные виды тренировок:{trainings.keys()}')
+                       f'Доступные виды тренировок: {", ".join(list(trainings.keys()))}')
     else:
         return trainings[workout_type](*data)
 
@@ -147,6 +147,7 @@ if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
+        ('RAN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
     ]
 
